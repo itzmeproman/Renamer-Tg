@@ -86,7 +86,9 @@ async def convert_video(video_file, output_directory, total_time, bot, message, 
     resolution.append("1280x720")
     preset.append("veryfast")
     audio_b.append("40k")
-    file_genertor_command = f"ffmpeg -hide_banner -loglevel quiet -progress '{progress}' -i '{video_file}' -metadata 'title=Encoded by Anime Sensei' -c:v {codec[0]}  -map 0 -crf {crf[0]} -c:s copy -pix_fmt yuv420p -s {resolution[0]} -b:v 150k -c:a libopus -b:a {audio_b[0]} -preset {preset[0]} -metadata:s:a 'title=Anime Sensei' -metadata:s:s 'title=Anime Sensei' '{out_put_file_name}' -y"
+    watermark.append('-vf "drawtext=fontfile=font.ttf:fontsize=27:fontcolor=white:bordercolor=black@0.50:x=w-tw-10:y=10:box=1:boxcolor=black@0.5:boxborderw=6:text=Anime Compass"')
+
+    file_genertor_command = f"ffmpeg -hide_banner -loglevel quiet -progress '{progress}' -i '{video_file}' {watermark[0]} -metadata 'title=Encoded by [@Anime_Compass]'  -c:v {codec[0]}  -map 0 -crf {crf[0]} -c:s copy -pix_fmt yuv420p -s {resolution[0]} -b:v 150k -c:a libopus -b:a {audio_b[0]} -preset {preset[0]} -metadata:s:a 'title=Anime Compass' -metadata:s:s 'title=Anime Compass' '{out_put_file_name}' -y"
  #Done !!
     COMPRESSION_START_TIME = time.time()
     process = await asyncio.create_subprocess_shell(
